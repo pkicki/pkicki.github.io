@@ -1,17 +1,17 @@
 ### Python
 
-Zanteresowanych zgłębianiem tajemnic Pythona zapraszam do przeszukiwania internetu, tutaj skupimy się na Numpy. 
+Zainteresowanych zgłębianiem tajemnic Pythona zapraszam do przeszukiwania internetu, tutaj skupimy się na Numpy. 
 
 ### Numpy - łagodne wprowadzenie
 
-NumPy jest przekozacką biblioteką do obliczeń naukowych. Szczególnie sprawdza się przy operowaniu na wielowymiarowych tablicach `ndarray` (N dimenional array). W swoim pakiecie zawiera też przydatne przy przetwarzaniu sygnałów funkcje, ale my skupimy się bardiej na tym co niezbędnei, by móc pisać właśne sieci neuronowe. Oczywiście moglibyśmy to osiągnąć korzystając z gołego Pyhona, a jakże, ale NumPy zapewnia, jakże pożądaną, skalowalność.
+NumPy jest przekozacką biblioteką do obliczeń naukowych. Szczególnie sprawdza się przy operowaniu na wielowymiarowych tablicach `ndarray` (N dimenional array). W swoim pakiecie zawiera też przydatne przy przetwarzaniu sygnałów funkcje, ale my skupimy się bardziej na tym co niezbędne, by móc pisać właśne sieci neuronowe. Oczywiście moglibyśmy to osiągnąć korzystając z gołego Pyhona, a jakże, ale NumPy zapewnia, jakże pożądaną, skalowalność.
 
 Aby rozpocząć zabawę z numpy wpisujemy w konsolę
 ```markdown
 $ python
 ```
 oczywiście $ to tylko znak konsoli Linuxowej (dla normalnego użytkownika). 
-Następnie, już w konsoli Pythona dokonujemy importu naszej ulubonej biblioteki
+Następnie, już w konsoli Pythona dokonujemy importu naszej ulubionej biblioteki
 ```markdown
 >>> import numpy as np
 ```
@@ -24,7 +24,7 @@ array([0, 1, 2, 3, 4, 5])
 >>> b
 array([3, 5, 7, 3, 2, 1])
 ```
-Do tworzenia specjalnych tablic(wypełnionych wartościami 1 lub 0) można też użyć komend
+Do tworzenia specjalnych tablic (wypełnionych wartościami 1, 0 lub losowymi) można też użyć komend
 ```markdown
 >>> c = np.zeros((2,3,2))
 >>> c
@@ -42,8 +42,13 @@ array([[[ 1.,  1.,  1.],
 
        [[ 1.,  1.,  1.],
         [ 1.,  1.,  1.]]])
+>>> e = np.random.randn(2,2)
+>>> e
+array([[ 0.05113948,  0.27751734],
+       [-0.56604264,  0.19052047]])
 ```
 gdzie tuple (2,3,2) oraz (2,2,3) definiują wymiary naszych nowych tablic.
+UWAGA! W funkcji `np.random.randn` nie można użyć tupli do definicji kształtu - wymagane są kolejne wymiary jako osobne argumenty.
 Jak zapewnie widzisz, elementy stworzonych tablic w kroku poprzednim i wcześniejszym różnią się!
 ```markdown
 >>> type(a[0])
@@ -51,7 +56,7 @@ Jak zapewnie widzisz, elementy stworzonych tablic w kroku poprzednim i wcześnie
 >>> type(c[0][0][0])
 <type 'numpy.float64'>
 ```
-Jeśli chcielibyśmy by elementy naszych tablic otrzymały typ inny niż omyślny wystarczy użyć argumentu `dtype`
+Jeśli chcielibyśmy by elementy naszych tablic otrzymały typ inny niż domyślny wystarczy użyć argumentu `dtype`
 ```markdown
 >>> a = np.arange(6, dtype=float)
 >>> a
@@ -59,6 +64,37 @@ array([ 0.,  1.,  2.,  3.,  4.,  5.])
 >>> type(a[0])
 <type 'numpy.float64'>
 ```
+
+W Pythonie rządzą wycinki tablic, każdy to wie, a NumPy tylko to potwierdza
+```markdown
+>>> c
+array([[[ 0,  1,  2],
+        [ 3,  4,  5],
+        [ 6,  7,  8]],
+
+       [[ 9, 10, 11],
+        [12, 13, 14],
+        [15, 16, 17]]])
+>>> c[:,1]
+array([[ 3,  4,  5],
+       [12, 13, 14]])
+>>> c[:,:,2]
+array([[ 2,  5,  8],
+       [11, 14, 17]])
+```	
+Tzw. slajsy(slice) są bardzo powszechne i niezwykle użyteczne
+```markdown
+>>> c[:,:,2] = 123
+>>> c
+array([[[  0,   1, 123],
+        [  3,   4, 123],
+        [  6,   7, 123]],
+
+       [[  9,  10, 123],
+        [ 12,  13, 123],
+        [ 15,  16, 123]]])
+```
+
 Okej, mamy różne różnowymiarowe tablice. Może jednak warto się upewnić jaki mają kształt, do tego służy pole `shape`
 ```markdown
 >>> a.shape
@@ -70,7 +106,7 @@ Okej, mamy różne różnowymiarowe tablice. Może jednak warto się upewnić ja
 >>> d.shape
 (2, 2, 3)
 ```
-Jak się później okaże `shape` będzie podstawą naszego debugu i jedynym srzymierzeńcem w próbie ogarnięcia co się z tymi macierzami dzieje.
+Jak się później okaże `shape` będzie podstawą naszego debugu i jedynym sprzymierzeńcem w próbie ogarnięcia co się z tymi macierzami dzieje.
 
 Skoro znam kształty naszych macierzy, to nauczmy się je zmieniać! Do tego skorzystamy z funkcji `reshape(shape)`
 ```markdown
@@ -88,9 +124,59 @@ array([[ 0.,  1.],
        [ 2.,  3.],
        [ 4.,  5.]])
 ```
-Warto zwrócić uwagę jak pięknie nam NumPy organizuje macierz do wyśwetlenia, co dobitnie pokazuje różnicę pomiędzy `(3,2)`, a `(2,3)`.
+Warto zwrócić uwagę jak pięknie nam NumPy organizuje macierz do wyświetlenia, co dobitnie pokazuje różnicę pomiędzy `(3,2)`, a `(2,3)`.
 Generalnie, zerowym wymiarem jest wysokość, a pierwszym szerokość.
 UWAGA! W tej funkcji nie ma potrzeby zamykania pożądanego kształtu w tuple.
+
+Ponadto możemy dodawać do naszych tablic nowy wymiar, dzięki `np.newaxis`
+```markdown
+>>> c
+array([[[ 0,  1,  2],
+        [ 3,  4,  5],
+        [ 6,  7,  8]],
+
+       [[ 9, 10, 11],
+        [12, 13, 14],
+        [15, 16, 17]]])
+>>> c[:, np.newaxis]
+array([[[[ 0,  1,  2],
+         [ 3,  4,  5],
+         [ 6,  7,  8]]],
+
+
+       [[[ 9, 10, 11],
+         [12, 13, 14],
+         [15, 16, 17]]]])
+>>> c[:, np.newaxis].shape
+(2, 1, 3, 3)
+>>> c[:,:,:, np.newaxis]
+array([[[[ 0],
+         [ 1],
+         [ 2]],
+
+        [[ 3],
+         [ 4],
+         [ 5]],
+
+        [[ 6],
+         [ 7],
+         [ 8]]],
+
+
+       [[[ 9],
+         [10],
+         [11]],
+
+        [[12],
+         [13],
+         [14]],
+
+        [[15],
+         [16],
+         [17]]]])
+>>> c[:,:,:, np.newaxis].shape
+(2, 3, 3, 1)
+```
 
 Okej, czas na trochę matematyki! Zobaczmy jakie działania są wspierane dla naszych ukochanych macierzy.
 No to dodajmy te macierze
@@ -100,7 +186,7 @@ Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 ValueError: operands could not be broadcast together with shapes (3,2) (2,3)
 ```
-Ups, no kto by się spodziewał... NumPy pilnuje czy ktoś tutaj ne chce wystrychnąć algebry na dudka! Dodajmy, więc coś co ma szansę być dodane
+Ups, no kto by się spodziewał... NumPy pilnuje czy ktoś tutaj nie chce wystrychnąć algebry na dudka! Dodajmy, więc coś, co ma szansę być dodane
 ```markdown
 >>> a
 array([[ 0.,  1.],
@@ -114,9 +200,9 @@ array([[  3.,   4.],
        [  7.,   5.],
        [ 11.,   6.]])
 ```
-Algebra nam mówi, że to już sens ma, a przy okazji dowiedzieliśmy się, że macierze można prosto transponnować dzięki `.T`.
+Algebra nam mówi, że to już sens ma, a przy okazji dowiedzieliśmy się, że macierze można prosto transponować dzięki `.T`.
 
-No ale przyznasz drogi naukowcu (w końcu używasz biblioteki doobliczeń naukowych), że gdyby NumPy pozwalał tylko a to, na co pozwala algebra, to nie był by tak fajny, a jednak jest fajny. Spróbujmy więc czegoś z pozoru dziwnego
+No ale przyznasz drogi naukowcu (w końcu używasz biblioteki do obliczeń naukowych), że gdyby NumPy pozwalał tylko na to, na co pozwala algebra, to nie byłby tak fajny, a jednak jest fajny. Spróbujmy więc czegoś z pozoru dziwnego
 ```markdown
 >>> a
 array([[ 0.,  1.],
@@ -136,7 +222,7 @@ array([[ 1.,  3.],
        [ 3.,  5.],
        [ 5.,  7.]])
 ```
-To działa! Przyznasz nawet, mam nadzieję że dość intuicyjnie. Zgodził nam się wymiar `2` i dzięki temu każdy wiersz został powiększony o wektor `f`.
+To działa! Przyznasz nawet, mam nadzieję, że dość intuicyjnie. Zgodził nam się wymiar `2` i dzięki temu każdy wiersz został powiększony o wektor `f`.
 Algera oszukana! Ale czy zawsze nam się to uda?
 ```markdown
 >>> a + np.array([1,2,3])
@@ -165,7 +251,7 @@ array([[  3.,   4.],
 
 ```
 Jak można się było spodziewać, działa!
-Takie ekstrapolowanie działania nazwya się w NumPy boradcasting.
+Takie ekstrapolowanie działania nazywa się w NumPy boradcasting.
 
 Dodawanie, dodawaniem, no ale jest też drugie bardzo istotne działanie... Tak, chodzi o mnożenie macierzy!
 No to do dzieła.
@@ -183,7 +269,7 @@ Traceback (most recent call last):
 ValueError: operands could not be broadcast together with shapes (3,2) (2,3) 
 ```
 Choć algebra powie nam "Ale jak to?!", NumPy powie "Nie tędy droga!".
-Nasze ulubione mnożenie `*` nie zadziała! Otóź NumPy przyjmuje znak `*` jako operator mnożenia element po elemencie, z resztą zobacz sam.
+Nasze ulubione mnożenie `*` nie zadziała! Otóż NumPy przyjmuje znak `*` jako operator mnożenia element po elemencie, z resztą zobacz sam.
 ```markdown
 >>> a
 array([[ 0.,  1.],
@@ -195,7 +281,7 @@ array([[  0.,   1.],
        [ 16.,  25.]])
 ```
 Jasne? No ja myślę!
-Dobra, ale jak pomnożyć te macierze jak Pan Bóg przykzał?!
+Dobra, ale jak pomnożyć te macierze jak Pan Bóg przykazał?!
 Otóż tak
 ```markdown
 >>> a
@@ -217,7 +303,7 @@ array([[ 38.,  53.],
        [  8.,  14.]])
 ```
 Mówili, że mnożenie macierzy nie jest przemienne... Na szczęście czasami jest :D 
-Oczywiście mnożenie przzez skalar działa równie dobrze
+Oczywiście mnożenie przez skalar działa równie dobrze
 ```markdown
 >>> b * 7
 array([[21, 35, 49],
@@ -225,7 +311,7 @@ array([[21, 35, 49],
 ```
 
 Okej, okej, ale czy ktoś na początku nie wspominał, że NumPy implementuje takie fajne obiekty `ndarray`, gdzie występuje magiczna literka `n`...?
-Fakt! Co to bylo by za narzedzie gdyby maks na co by je było stać to tablice trójwymiarowe? NumPy mnoży dowolnej wielkości tablice
+Fakt! Co to byłoby za narzędzie, gdyby maksimum, na jakie by je było stać to tablice trójwymiarowe? NumPy mnoży dowolnej wielkości tablice
 ```markdown
 >>> c = np.arange(18).reshape(2,3,3)
 >>> c
@@ -297,7 +383,7 @@ array([[[[[  10,   13],
          [[ 676,  724],
           [ 964, 1012]]]]])
 ```
-Można zapytać co tu się najlepszego odwaliło?! Odpowiedź jest prosta, a z pomocą przyjdzie nam `shape`
+Można zapytać: Co tu się najlepszego odwaliło?! Odpowiedź jest prosta, a z pomocą przyjdzie nam `shape`
 ```markdown
 >>> c.shape
 (2, 3, 3)
@@ -306,7 +392,7 @@ Można zapytać co tu się najlepszego odwaliło?! Odpowiedź jest prosta, a z p
 >>> np.dot(c, d).shape
 (2, 3, 2, 2, 2)
 ```
-Widzisz wzór? Jeśli nie, to pozwól że go wyartukułuję dla Twej wygody
+Widzisz wzór? Jeśli nie, to pozwól, że go wyartykułuję dla Twej wygody
 ```markdown
 >>> c.shape
 (X..., A)
@@ -315,7 +401,7 @@ Widzisz wzór? Jeśli nie, to pozwól że go wyartukułuję dla Twej wygody
 >>> np.dot(c, d).shape
 (X..., Y..., B)
 ```
-Teraz jasne? W mnożeniu macierzy kasują się wymiary: ostatni pierwszej oraz przedostatni drugiej, a resztę zapsujemy kolejno i tak tworzy się wynik. Prawda, że prosta zasada? Jak cofniesz się do przykładów dwuwymiarowych to też zauważysz, że zależnośc jest spełniona.
+Teraz jasne? W mnożeniu macierzy kasują się wymiary: ostatni pierwszej oraz przedostatni drugiej, a resztę zapisujemy kolejno i tak tworzy się wynik. Prawda, że prosta zasada? Jak cofniesz się do przykładów dwuwymiarowych, to też zauważysz, że zależność jest spełniona.
 
 No, pomnożyliśmy sobie, wracamy do roboty. Jakie jeszcze działania wspiera nasza biblioteka? Odpowiedź brzmi: logiczne. Popatrz tylko na te wspaniałe rezultaty
 ```markdown
@@ -329,14 +415,109 @@ array([[False,  True,  True],
 array([[ True, False, False],
        [ True, False, False]], dtype=bool)
 ```
+Ktoś mógłby zapytać "Po co to?", już śpieszę z odpowiedzią
+```markdown
+>>> b
+array([[3, 5, 7],
+       [3, 2, 1]])
+>>> b[b>4]
+array([5, 7])
+>>> np.where(b > 4, b, -10)
+array([[-10,   5,   7],
+       [-10, -10, -10]])
+>>> b[b>4] = 10
+>>> b
+array([[ 3, 10, 10],
+       [ 3,  2,  1]])
+```
+Jak widać dzięki operatorom logicznym możemy wybierać elementy macierzy spełniające warunek, oraz modyfikować je w zależności od spełnienia warunku, dzięki funkcji `where` lub indeksowaniu `b[b>4]`.
 
+NumPy daje nam do dyspozycji kilka innych bardzo przydatnych funkcji `sum`, `min`, `max`, `mean`, `var`, `std`. Oczywiście przy ich pomocy możemy obliczyć kolejno: sumę, minimum, maksimum, średnią, wariancję i odchylenie standardowe.
+Jednak, co w nich najciekawsze, oprócz przydanego działania, to prezentują one znakomicie użycie parametru `axis` i to postaram się Ci na przykładzie `np.sum` pokazać
 ```markdown
+>>> c
+array([[[ 0,  1,  2],
+        [ 3,  4,  5],
+        [ 6,  7,  8]],
+
+       [[ 9, 10, 11],
+        [12, 13, 14],
+        [15, 16, 17]]])
+>>> c.shape
+(2, 3, 3)
+>>> np.sum(c)
+153
+>>> np.sum(c, axis=0)
+array([[ 9, 11, 13],
+       [15, 17, 19],
+       [21, 23, 25]])
+>>> np.sum(c, axis=1)
+array([[ 9, 12, 15],
+       [36, 39, 42]])
+>>> np.sum(c, axis=2)
+array([[ 3, 12, 21],
+       [30, 39, 48]])
+>>> np.sum(c, axis=(0,1))
+array([45, 51, 57])
+>>> np.sum(c, axis=(0,2))
+array([33, 51, 69])
+>>> np.sum(c, axis=(1,2))
+array([ 36, 117])
 ```
+Dużo obliczeń, ale postaramy się sobie z nimi poradzić po kolei. Samo `sum` daje nam sumę wszystkich elementów. Jednakże, kiedy wyspecyfikujemy parametr `axis=0` otrzymujemy dwuwymiarową macierz! Dzieje się tak, dlatego, że sumowanie obywa się wzdłuż osi `0`, czyli dodajemy górną macierz 3x3 do dolnej -> `0+9=9`, `1+10=11`, ..., `8+17=25`.
+Dla osi 1 dodajemy poszczególne kolumny -> `0+3+6=9`, `1+4+7=12`, ..., `11+14+17=42`.
+Dla osi 2 dodajemy poszczególne wiersze -> `0+1+2=3`, `3+4+5=12`, ..., `15+16+17=48`.
+Możemy też na raz wykonać działanie względem kilku osi, podając `axis` jako tuple, i tak:
+(0,1) -> weźmy wynik sumy dla `axis=0` i zsumujmy kolumny,
+(0,2) -> weźmy wynik sumy dla `axis=0` i zsumujmy wiersze,
+(1,2) -> weźmy wynik sumy dla `axis=1` i zsumujmy wiersze.
+
+Dobra wystarczy jeszcze tylko się nauczyć składać kilka macierzy w jedną i będziemy mistrzami!
+Do takich czarów służą `hstack` i `vstack`. Powiedzieć, że `h` jest od horizontal (poziomo), a `v` od vertical (pionowo), to jak nie powiedzieć wszystko. Zresztą popatrz
 ```markdown
+>>> a = np.arange(12).reshape(2, 2, 3)
+>>> b = np.arange(12).reshape(2, 2, 3)
+>>> a
+array([[[ 0,  1,  2],
+        [ 3,  4,  5]],
+
+       [[ 6,  7,  8],
+        [ 9, 10, 11]]])
+>>> b
+array([[[ 0,  1,  2],
+        [ 3,  4,  5]],
+
+       [[ 6,  7,  8],
+        [ 9, 10, 11]]])
+
+>>> np.hstack([a, b])
+array([[[ 0,  1,  2],
+        [ 3,  4,  5],
+        [ 0,  1,  2],
+        [ 3,  4,  5]],
+
+       [[ 6,  7,  8],
+        [ 9, 10, 11],
+        [ 6,  7,  8],
+        [ 9, 10, 11]]])
+>>> np.hstack([a, b]).shape
+(2, 4, 3)
+>>> np.vstack([a, b])
+array([[[ 0,  1,  2],
+        [ 3,  4,  5]],
+
+       [[ 6,  7,  8],
+        [ 9, 10, 11]],
+
+       [[ 0,  1,  2],
+        [ 3,  4,  5]],
+
+       [[ 6,  7,  8],
+        [ 9, 10, 11]]])
+>>> np.vstack([a, b]).shape
+(4, 2, 3)
 ```
-```markdown
-```
-```markdown
-```
-```markdown
-```
+
+Czy to już wszystko co warto wiedzieć o NumPy?
+Na pewno nie! Internet i znakomita dokumentacja NumPy pewnie pomogą Ci o wiele więcej razy niż to krótkie wprowadzenie.
+"Szukajcie, a znajdziecie" ~ [Łk, 11, 9]
