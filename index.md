@@ -10,7 +10,7 @@ Aby rozpocząć zabawę z numpy wpisujemy w konsolę
 ```markdown
 $ python
 ```
-oczywiście $ to tylko znak konsoli Linuxowej (dla normalnego użytkownika). 
+oczywiście $ to tylko znak konsoli Linuxowej (dla normalnego użytkownika). <br />
 Następnie, już w konsoli Pythona dokonujemy importu naszej ulubionej biblioteki
 ```markdown
 >>> import numpy as np
@@ -47,8 +47,8 @@ array([[[ 1.,  1.,  1.],
 array([[ 0.05113948,  0.27751734],
        [-0.56604264,  0.19052047]])
 ```
-gdzie tuple (2,3,2) oraz (2,2,3) definiują wymiary naszych nowych tablic.
-UWAGA! W funkcji `np.random.randn` nie można użyć tupli do definicji kształtu - wymagane są kolejne wymiary jako osobne argumenty.
+gdzie tuple (2,3,2) oraz (2,2,3) definiują wymiary naszych nowych tablic.<br />
+UWAGA! W funkcji `np.random.randn` nie można użyć tupli do definicji kształtu - wymagane są kolejne wymiary jako osobne argumenty.<br />
 Jak zapewnie widzisz, elementy stworzonych tablic w kroku poprzednim i wcześniejszym różnią się!
 ```markdown
 >>> type(a[0])
@@ -125,7 +125,7 @@ array([[ 0.,  1.],
        [ 4.,  5.]])
 ```
 Warto zwrócić uwagę jak pięknie nam NumPy organizuje macierz do wyświetlenia, co dobitnie pokazuje różnicę pomiędzy `(3,2)`, a `(2,3)`.
-Generalnie, zerowym wymiarem jest wysokość, a pierwszym szerokość.
+Generalnie, zerowym wymiarem jest wysokość, a pierwszym szerokość.<br />
 UWAGA! W tej funkcji nie ma potrzeby zamykania pożądanego kształtu w tuple.
 
 Ponadto możemy dodawać do naszych tablic nowy wymiar, dzięki `np.newaxis`
@@ -178,7 +178,7 @@ array([[[[ 0],
 (2, 3, 3, 1)
 ```
 
-Okej, czas na trochę matematyki! Zobaczmy jakie działania są wspierane dla naszych ukochanych macierzy.
+Okej, czas na trochę matematyki! Zobaczmy jakie działania są wspierane dla naszych ukochanych macierzy.<br />
 No to dodajmy te macierze
 ```markdown
 >>> a + b
@@ -222,7 +222,7 @@ array([[ 1.,  3.],
        [ 3.,  5.],
        [ 5.,  7.]])
 ```
-To działa! Przyznasz nawet, mam nadzieję, że dość intuicyjnie. Zgodził nam się wymiar `2` i dzięki temu każdy wiersz został powiększony o wektor `f`.
+To działa! Przyznasz nawet, mam nadzieję, że dość intuicyjnie. Zgodził nam się wymiar `2` i dzięki temu każdy wiersz został powiększony o wektor `f`.<br />
 Algera oszukana! Ale czy zawsze nam się to uda?
 ```markdown
 >>> a + np.array([1,2,3])
@@ -250,7 +250,7 @@ array([[  3.,   4.],
        [ 14.,  15.]])
 
 ```
-Jak można się było spodziewać, działa!
+Jak można się było spodziewać, działa!<br />
 Takie ekstrapolowanie działania nazywa się w NumPy boradcasting.
 
 Dodawanie, dodawaniem, no ale jest też drugie bardzo istotne działanie... Tak, chodzi o mnożenie macierzy!
@@ -268,7 +268,7 @@ Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 ValueError: operands could not be broadcast together with shapes (3,2) (2,3) 
 ```
-Choć algebra powie nam "Ale jak to?!", NumPy powie "Nie tędy droga!".
+Choć algebra powie nam "Ale jak to?!", NumPy powie "Nie tędy droga!".<br />
 Nasze ulubione mnożenie `*` nie zadziała! Otóż NumPy przyjmuje znak `*` jako operator mnożenia element po elemencie, z resztą zobacz sam.
 ```markdown
 >>> a
@@ -280,8 +280,8 @@ array([[  0.,   1.],
        [  4.,   9.],
        [ 16.,  25.]])
 ```
-Jasne? No ja myślę!
-Dobra, ale jak pomnożyć te macierze jak Pan Bóg przykazał?!
+Jasne? No ja myślę!<br />
+Dobra, ale jak pomnożyć te macierze jak Pan Bóg przykazał?!<br />
 Otóż tak
 ```markdown
 >>> a
@@ -302,7 +302,7 @@ Ten wynik nie powinien już nikogo dziwić.
 array([[ 38.,  53.],
        [  8.,  14.]])
 ```
-Mówili, że mnożenie macierzy nie jest przemienne... Na szczęście czasami jest :D 
+Mówili, że mnożenie macierzy nie jest przemienne... Na szczęście czasami jest :D <br />
 Oczywiście mnożenie przez skalar działa równie dobrze
 ```markdown
 >>> b * 7
@@ -310,7 +310,7 @@ array([[21, 35, 49],
        [21, 14,  7]])
 ```
 
-Okej, okej, ale czy ktoś na początku nie wspominał, że NumPy implementuje takie fajne obiekty `ndarray`, gdzie występuje magiczna literka `n`...?
+Okej, okej, ale czy ktoś na początku nie wspominał, że NumPy implementuje takie fajne obiekty `ndarray`, gdzie występuje magiczna literka `n`...?<br />
 Fakt! Co to byłoby za narzędzie, gdyby maksimum, na jakie by je było stać to tablice trójwymiarowe? NumPy mnoży dowolnej wielkości tablice
 ```markdown
 >>> c = np.arange(18).reshape(2,3,3)
@@ -432,7 +432,7 @@ array([[ 3, 10, 10],
 ```
 Jak widać dzięki operatorom logicznym możemy wybierać elementy macierzy spełniające warunek, oraz modyfikować je w zależności od spełnienia warunku, dzięki funkcji `where` lub indeksowaniu `b[b>4]`.
 
-NumPy daje nam do dyspozycji kilka innych bardzo przydatnych funkcji `sum`, `min`, `max`, `mean`, `var`, `std`. Oczywiście przy ich pomocy możemy obliczyć kolejno: sumę, minimum, maksimum, średnią, wariancję i odchylenie standardowe.
+NumPy daje nam do dyspozycji kilka innych bardzo przydatnych funkcji `sum`, `min`, `max`, `mean`, `var`, `std`. Oczywiście przy ich pomocy możemy obliczyć kolejno: sumę, minimum, maksimum, średnią, wariancję i odchylenie standardowe.<br />
 Jednak, co w nich najciekawsze, oprócz przydanego działania, to prezentują one znakomicie użycie parametru `axis` i to postaram się Ci na przykładzie `np.sum` pokazać
 ```markdown
 >>> c
@@ -464,13 +464,13 @@ array([33, 51, 69])
 >>> np.sum(c, axis=(1,2))
 array([ 36, 117])
 ```
-Dużo obliczeń, ale postaramy się sobie z nimi poradzić po kolei. Samo `sum` daje nam sumę wszystkich elementów. Jednakże, kiedy wyspecyfikujemy parametr `axis=0` otrzymujemy dwuwymiarową macierz! Dzieje się tak, dlatego, że sumowanie obywa się wzdłuż osi `0`, czyli dodajemy górną macierz 3x3 do dolnej -> `0+9=9`, `1+10=11`, ..., `8+17=25`.
-Dla osi 1 dodajemy poszczególne kolumny -> `0+3+6=9`, `1+4+7=12`, ..., `11+14+17=42`.
-Dla osi 2 dodajemy poszczególne wiersze -> `0+1+2=3`, `3+4+5=12`, ..., `15+16+17=48`.
-Możemy też na raz wykonać działanie względem kilku osi, podając `axis` jako tuple, i tak:
-(0,1) -> weźmy wynik sumy dla `axis=0` i zsumujmy kolumny,
-(0,2) -> weźmy wynik sumy dla `axis=0` i zsumujmy wiersze,
-(1,2) -> weźmy wynik sumy dla `axis=1` i zsumujmy wiersze.
+Dużo obliczeń, ale postaramy się sobie z nimi poradzić po kolei. Samo `sum` daje nam sumę wszystkich elementów. Jednakże, kiedy wyspecyfikujemy parametr `axis=0` otrzymujemy dwuwymiarową macierz! Dzieje się tak, dlatego, że sumowanie obywa się wzdłuż osi `0`, czyli dodajemy górną macierz 3x3 do dolnej -> `0+9=9`, `1+10=11`, ..., `8+17=25`.<br />
+Dla osi 1 dodajemy poszczególne kolumny -> `0+3+6=9`, `1+4+7=12`, ..., `11+14+17=42`.<br />
+Dla osi 2 dodajemy poszczególne wiersze -> `0+1+2=3`, `3+4+5=12`, ..., `15+16+17=48`.<br />
+Możemy też na raz wykonać działanie względem kilku osi, podając `axis` jako tuple, i tak:<br />
+(0,1) -> weźmy wynik sumy dla `axis=0` i zsumujmy kolumny,<br />
+(0,2) -> weźmy wynik sumy dla `axis=0` i zsumujmy wiersze,<br />
+(1,2) -> weźmy wynik sumy dla `axis=1` i zsumujmy wiersze.<br />
 
 Dobra wystarczy jeszcze tylko się nauczyć składać kilka macierzy w jedną i będziemy mistrzami!
 Do takich czarów służą `hstack` i `vstack`. Powiedzieć, że `h` jest od horizontal (poziomo), a `v` od vertical (pionowo), to jak nie powiedzieć wszystko. Zresztą popatrz
@@ -518,6 +518,6 @@ array([[[ 0,  1,  2],
 (4, 2, 3)
 ```
 
-Czy to już wszystko co warto wiedzieć o NumPy?
-Na pewno nie! Internet i znakomita dokumentacja NumPy pewnie pomogą Ci o wiele więcej razy niż to krótkie wprowadzenie.
+Czy to już wszystko co warto wiedzieć o NumPy?<br />
+Na pewno nie! Internet i znakomita dokumentacja NumPy pewnie pomogą Ci o wiele więcej razy niż to krótkie wprowadzenie.<br />
 "Szukajcie, a znajdziecie" ~ [Łk, 11, 9]
