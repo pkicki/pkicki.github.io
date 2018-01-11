@@ -165,6 +165,7 @@ array([[  3.,   4.],
 
 ```
 Jak można się było spodziewać, działa!
+Takie ekstrapolowanie działania nazwya się w NumPy boradcasting.
 
 Dodawanie, dodawaniem, no ale jest też drugie bardzo istotne działanie... Tak, chodzi o mnożenie macierzy!
 No to do dzieła.
@@ -222,6 +223,100 @@ Oczywiście mnożenie przzez skalar działa równie dobrze
 array([[21, 35, 49],
        [21, 14,  7]])
 ```
+
+Okej, okej, ale czy ktoś na początku nie wspominał, że NumPy implementuje takie fajne obiekty `ndarray`, gdzie występuje magiczna literka `n`...?
+Fakt! Co to bylo by za narzedzie gdyby maks na co by je było stać to tablice trójwymiarowe? NumPy mnoży dowolnej wielkości tablice
+```markdown
+>>> c = np.arange(18).reshape(2,3,3)
+>>> c
+array([[[ 0,  1,  2],
+        [ 3,  4,  5],
+        [ 6,  7,  8]],
+
+       [[ 9, 10, 11],
+        [12, 13, 14],
+        [15, 16, 17]]])
+>>> d = np.arange(24).reshape(2,2,3,2)
+>>> d
+array([[[[ 0,  1],
+         [ 2,  3],
+         [ 4,  5]],
+
+        [[ 6,  7],
+         [ 8,  9],
+         [10, 11]]],
+
+
+       [[[12, 13],
+         [14, 15],
+         [16, 17]],
+
+        [[18, 19],
+         [20, 21],
+         [22, 23]]]])
+>>> np.dot(c, d)
+array([[[[[  10,   13],
+          [  28,   31]],
+
+         [[  46,   49],
+          [  64,   67]]],
+
+
+        [[[  28,   40],
+          [ 100,  112]],
+
+         [[ 172,  184],
+          [ 244,  256]]],
+
+
+        [[[  46,   67],
+          [ 172,  193]],
+
+         [[ 298,  319],
+          [ 424,  445]]]],
+
+
+
+       [[[[  64,   94],
+          [ 244,  274]],
+
+         [[ 424,  454],
+          [ 604,  634]]],
+
+
+        [[[  82,  121],
+          [ 316,  355]],
+
+         [[ 550,  589],
+          [ 784,  823]]],
+
+
+        [[[ 100,  148],
+          [ 388,  436]],
+
+         [[ 676,  724],
+          [ 964, 1012]]]]])
+```
+Można zapytać co tu się najlepszego odwaliło?! Odpowiedź jest prosta, a z pomocą przyjdzie nam `shape`
+```markdown
+>>> c.shape
+(2, 3, 3)
+>>> d.shape
+(2, 2, 3, 2)
+>>> np.dot(c, d).shape
+(2, 3, 2, 2, 2)
+```
+Widzisz wzór? Jeśli nie, to pozwól że go wyartukułuję dla Twej wygody
+```markdown
+>>> c.shape
+(X..., A)
+>>> d.shape
+(Y..., A, B)
+>>> np.dot(c, d).shape
+(X..., Y..., B)
+```
+Teraz jasne? W mnożeniu macierzy kasują się wymiary: ostatni pierwszej oraz przedostatni drugiej, a resztę zapsujemy kolejno i tak tworzy się wynik. Prawda, że prosta zasada? Jak cofniesz się do przykładów dwuwymiarowych to też zauważysz, że zależnośc jest spełniona.
+
 No, pomnożyliśmy sobie, wracamy do roboty. Jakie jeszcze działania wspiera nasza biblioteka? Odpowiedź brzmi: logiczne. Popatrz tylko na te wspaniałe rezultaty
 ```markdown
 >>> b
@@ -234,6 +329,7 @@ array([[False,  True,  True],
 array([[ True, False, False],
        [ True, False, False]], dtype=bool)
 ```
+
 ```markdown
 ```
 ```markdown
