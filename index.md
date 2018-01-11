@@ -24,7 +24,7 @@ array([0, 1, 2, 3, 4, 5])
 >>> b
 array([3, 5, 7, 3, 2, 1])
 ```
-Do tworzenia specjalnych tablic (wypełnionych wartościami 1, 0 lub losowymi) można też użyć komend
+Do tworzenia specjalnych tablic (wypełnionych wartościami 1, 0 lub losowymi) można też użyć funkcji `np.zeros`, `np.ones`, `np.random.randn`
 ```markdown
 >>> c = np.zeros((2,3,2))
 >>> c
