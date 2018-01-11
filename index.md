@@ -4,7 +4,7 @@ Zainteresowanych zgłębianiem tajemnic Pythona zapraszam do przeszukiwania inte
 
 ### Numpy - łagodne wprowadzenie
 
-NumPy jest przekozacką biblioteką do obliczeń naukowych. Szczególnie sprawdza się przy operowaniu na wielowymiarowych tablicach `ndarray` (N dimenional array). W swoim pakiecie zawiera też przydatne przy przetwarzaniu sygnałów funkcje, ale my skupimy się bardziej na tym co niezbędne, by móc pisać właśne sieci neuronowe. Oczywiście moglibyśmy to osiągnąć korzystając z gołego Pyhona, a jakże, ale NumPy zapewnia, jakże pożądaną, skalowalność.
+NumPy jest przekozacką biblioteką do obliczeń naukowych. Szczególnie sprawdza się przy operowaniu na wielowymiarowych tablicach `ndarray` (N dimensional array). W swoim pakiecie zawiera też przydatne przy przetwarzaniu sygnałów funkcje, ale my skupimy się bardziej na tym co niezbędne, by móc pisać właśne sieci neuronowe. Oczywiście moglibyśmy to osiągnąć korzystając z gołego Pyhona, a jakże, ale NumPy zapewnia, jakże pożądaną, skalowalność.
 
 Aby rozpocząć zabawę z numpy wpisujemy w konsolę
 ```markdown
